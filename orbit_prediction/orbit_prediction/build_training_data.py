@@ -96,6 +96,9 @@ def predict_orbits(df, last_n_days, n_pred_days):
     # that ASO that are within `n_pred_days` of the given row
     window_cols = ['aso_id', pd.Grouper(freq=pred_window_length)]
     windows = [w[1] for w in epoch_df.groupby(window_cols)]
+
+    non_empty_windows = list(filter(lambda w: w.shape[0] > 1, windows))
+
     # Predict the orbits in each window in parallel
     window_dfs = Parallel(n_jobs=-1)(delayed(predict_orbit)(w)
                                      for w in tqdm(windows))

@@ -1,0 +1,13 @@
+wheel
+astropy==4.3.1
+joblib
+matplotlib
+numpy==1.21.5
+pandas
+poliastro
+pyarrow
+scikit-learn
+spacetrack
+TLE-tools
+tqdm
+xgboost

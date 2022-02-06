@@ -24,6 +24,8 @@ from poliastro.twobody import Orbit
 from poliastro.twobody.propagation import cowell
 from poliastro.core.perturbations import J2_perturbation
 
+from orbit_prediction.additional_dynamics import a_d
+
 
 class PhysicsModel(BaseEstimator):
     """A simple model for orbit propagation implementing the
@@ -95,9 +97,8 @@ class PhysicsModel(BaseEstimator):
             """
             prop_orbit = orbit.propagate(s*u.s,
                                          method=cowell,
-                                         ad=J2_perturbation,
-                                         J2=Earth.J2.value,
-                                         R=Earth.R.to(u.km).value)
+                                         f=a_d)
+
             prop_r, prop_v = prop_orbit.rv()
             prop_state_vect = np.concatenate(
                 [prop_r.to(u.m).to_value(),
